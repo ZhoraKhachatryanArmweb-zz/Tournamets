@@ -25,7 +25,7 @@ const styles = theme => ({
 class TournamentContainer extends Component {
 
 	render() {
-        const { tournaments, actions,classes } = this.props
+        const { tournaments, actions, classes } = this.props
 		return(
 			<div className={classes.root}>
                 <Grid container spacing={24}>
