@@ -19,7 +19,7 @@ const styles = theme => ({
 	menu: {
 	  width: 300,
 	}
-});
+})
 
 class Search extends Component {
 	constructor() {
@@ -39,7 +39,7 @@ class Search extends Component {
 	}
 
 	render() {
-		const { classes } = this.props;
+		const { classes } = this.props
 		return(
 			<TextField
 				id="standard-dense"

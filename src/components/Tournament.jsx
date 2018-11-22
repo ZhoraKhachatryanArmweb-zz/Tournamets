@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card'
+import CardActionArea from '@material-ui/core/CardActionArea'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
+import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
 
 const styles = {
     card: {
@@ -22,19 +22,19 @@ const styles = {
 class Tournament extends Component {
 
 	getSavedItems = () => {
-		return JSON.parse(localStorage.getItem('savedItems'));
+		return JSON.parse(localStorage.getItem('savedItems'))
 	}
 
 	saveItem = (e, item) => {
 		this.props.saveItem(item.id)
-		const newValue = (JSON.parse(localStorage.getItem('savedItems')) || []).concat(item);
-		localStorage.setItem('savedItems', JSON.stringify(newValue));
+		const newValue = (JSON.parse(localStorage.getItem('savedItems')) || []).concat(item)
+		localStorage.setItem('savedItems', JSON.stringify(newValue))
 	}
 
 	fetchedData = () => {
 		const { tournaments, classes } = this.props
-		if(!tournaments) return;
-		let savedItems = this.getSavedItems();
+		if(!tournaments) return
+		let savedItems = this.getSavedItems()
 		let tournamentData = tournaments && tournaments.filter(item => savedItems && savedItems.indexOf(item.id) == -1)
 		const fetchedData = (tournamentData.length > 0 ? tournamentData : tournaments && tournaments).map(item => {
 			return (
@@ -82,4 +82,4 @@ Tournament.propTypes  = {
 	classes: PropTypes.object
 }
 
-export default withStyles(styles)(Tournament);
+export default withStyles(styles)(Tournament)

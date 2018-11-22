@@ -1,5 +1,5 @@
 {
-  "name": "minimal-react-webpack-babel-setup",
+  "name": "the-tournament-application",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,7 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "keywords": [],
-  "author": "",
+  "author": "Zhora Khachatryan",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.1.2",

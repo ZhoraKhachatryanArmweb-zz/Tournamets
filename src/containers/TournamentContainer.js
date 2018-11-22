@@ -7,9 +7,9 @@ import { getData, saveItem, clearReducer } from '../actions'
 import Search from '../components/Search'
 import Tournaments from '../components/Tournament'
 import SavedTournamets from '../components/SavedTournamets'
-import { withStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
+import { withStyles } from "@material-ui/core/styles"
+import Paper from "@material-ui/core/Paper"
+import Grid from "@material-ui/core/Grid"
 
 const styles = theme => ({
     root: {
@@ -20,7 +20,7 @@ const styles = theme => ({
       textAlign: "center",
       color: theme.palette.text.secondary
     }
-});
+})
 
 class TournamentContainer extends Component {
 
@@ -55,7 +55,7 @@ class TournamentContainer extends Component {
 
 const mapStateToProps = (store) => {
     return {
-        tournaments: store.getData.tournaments,
+        tournaments: store.main.tournaments,
     }
 }
 

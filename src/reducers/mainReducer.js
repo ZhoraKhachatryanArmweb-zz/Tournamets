@@ -1,28 +1,28 @@
 import {
-    getDataActionType,
-} from "../actions/actionTypes";
-import { initialStates } from "./initialState";
+    mainActionTypes,
+} from "../actions/actionTypes"
+import { initialStates } from "./initialState"
 
 export default function reducer(state = initialStates.tournaments, action) {
     switch (action.type) {
-        case getDataActionType.GET_DATA: {
+        case mainActionTypes.GET_DATA: {
             return {
                 ...state,
                 tournaments: action.payload,
-            };
+            }
         }
-        case getDataActionType.DELETE_ITEM: {
+        case mainActionTypes.DELETE_ITEM: {
             return {
                 ...state,
                 tournaments: state.tournaments.filter(({ id }) => id !== action.payload),
-              };
+              }
         }
-        case getDataActionType.CLEAR_REDUCER: {
+        case mainActionTypes.CLEAR_REDUCER: {
             return {
                 tournaments: []
             }
         }
         default:
-            return state;
+            return state
     }
 }

@@ -1,5 +1,5 @@
 import { Http } from '../requests'
-import { getDataActionType } from './actionTypes'
+import { mainActionTypes } from './actionTypes'
 import environment from '../env'
 
 export function getData(data) {
@@ -9,7 +9,7 @@ export function getData(data) {
         .then((response) => {
             const data = response.data[0].documents.slice(0, 10)
             dispatch({
-                type: getDataActionType.GET_DATA,
+                type: mainActionTypes.GET_DATA,
                 payload: data,
             })
         })
@@ -22,7 +22,7 @@ export function getData(data) {
 export function saveItem(id) {
     return dispatch => {
         dispatch({
-            type: getDataActionType.DELETE_ITEM,
+            type: mainActionTypes.DELETE_ITEM,
             payload: id,
         })
     }
@@ -31,7 +31,7 @@ export function saveItem(id) {
 export function clearReducer() {
     return dispatch => {
         dispatch({
-            type: getDataActionType.CLEAR_REDUCER,
+            type: mainActionTypes.CLEAR_REDUCER,
         })
     }
 }

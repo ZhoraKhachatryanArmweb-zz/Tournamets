@@ -1,4 +1,4 @@
-const webpack = require('webpack');
+const webpack = require('webpack')
 
 module.exports = {
   entry: './src/index.js',
@@ -26,4 +26,4 @@ module.exports = {
     contentBase: './dist',
     hot: true
   }
-};
+}

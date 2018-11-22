@@ -1,5 +1,5 @@
-import * as getData from './getDataAction'
+import * as mainActions from './mainActions'
 
 export {
-    getData
+    mainActions
 }

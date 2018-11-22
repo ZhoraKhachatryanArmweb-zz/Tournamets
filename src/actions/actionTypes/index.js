@@ -1,5 +1,5 @@
-import { getDataActionType } from './getData'
+import { mainActionTypes } from './mainActionType'
 
 export {
-    getDataActionType,
+    mainActionTypes,
 }
