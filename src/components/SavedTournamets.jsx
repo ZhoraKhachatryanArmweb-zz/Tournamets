@@ -121,7 +121,7 @@ class SavedTournamets extends Component {
                             <Button variant="outlined" className={classes.button} onClick={()=> this.closeModal()}>
                                 Cancel
                             </Button>
-                            <Button variant="contained" color="secondary" className={classes.button} onClick={() => this.deleteItem(this.state.deletingIndex)}>
+                            <Button variant="contained" color="secondary" className={'delete-button ' + classes.button} onClick={() => this.deleteItem(this.state.deletingIndex)}>
                                 Delete
                             </Button>
                         </Typography>
