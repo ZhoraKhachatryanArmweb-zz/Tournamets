@@ -1,56 +1,165 @@
 import React, { Component } from 'react'
 
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Modal from '@material-ui/core/Modal';
+
+
+function rand() {
+    return Math.round(Math.random() * 20) - 10;
+  }
+  
+  function getModalStyle() {
+    const top = 50 + rand();
+    const left = 50 + rand();
+  
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `translate(-${top}%, -${left}%)`,
+    };
+  }
+  
+//   const styless = theme => ({
+//     paper: {
+//       position: 'absolute',
+//       width: theme.spacing.unit * 50,
+//       backgroundColor: theme.palette.background.paper,
+//       boxShadow: theme.shadows[5],
+//       padding: theme.spacing.unit * 4,
+//     },
+//   });
+
+const styles = theme => ({
+    card: {
+	  maxWidth: 1000,
+      marginTop: 10,
+    },
+    media: {
+      objectFit: 'cover',
+    },
+    paper: {
+        position: 'absolute',
+        width: theme.spacing.unit * 50,
+        backgroundColor: theme.palette.background.paper,
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing.unit * 4,
+    },
+})
+
 class SavedTournamets extends Component {
 
     constructor() {
 		super()
 		this.state = {
-			data: JSON.parse(localStorage.getItem("deletedItems"))
+            data: JSON.parse(localStorage.getItem("savedItems")),
+            open: false,
+            // delete: false,
+            deletingIndex: null
 		}
     }
 
-    deleteItem = index => {
-        const nextState = this.state.data.filter((_, i) => i !== index);
-        localStorage.setItem("deletedItems", JSON.stringify(nextState));
+    // handleOpen = (index) => {
+    //     this.setState({ open: true });
+    //     if(this.state.delete === true) {
+    //         console.log('a')
+    //         this.deleteItem(index)
+    //     }
+    // };
+
+    // deleteI = () => {
+    //     this.setState({delete:true})
+    //     this.handleOpen()
+    // }
+    
+    // handleClose = () => {
+    //     this.setState({ open: false,delete:false });
+    // };
+
+    deleteItem = (index) => {
+        const nextState = JSON.parse(localStorage.getItem("savedItems")).filter((_, i) => i !== index);
+        localStorage.setItem("savedItems", JSON.stringify(nextState));
         this.setState({ data: nextState });
+        this.closeModal()
     }
 
-    deleteItem = (e, id) => {
-        const newValue = (JSON.parse(localStorage.getItem('deletedItems')) || []).concat(id);
-        localStorage.setItem('deletedItems', JSON.stringify(newValue));
-      }
+    modalOpen = (i) => {
+        this.setState({ open: true, deletingIndex: i });
+    }
 
-    getDeletedItems = () => {
-        const data = JSON.parse(localStorage.getItem('deletedItems'))
-		return  data && data.map((i,index) => {
-            return (<div key={index}>
-                <img src={i.image} width="50"/>
-                <div>{i.title}</div> 
-                <div>{i.description}</div>
-                <div>{i.score}</div>
-                <p style={{color:'red'}} onClick={() => this.deleteItem(index)}>Delete</p>
-            </div>)
+    closeModal = () => {
+        this.setState({ open: false, deletingIndex: null });
+    }
+
+
+    getSavedItems = () => {
+        const { classes } = this.props
+        const data = JSON.parse(localStorage.getItem('savedItems'))
+		return  data && data.map((item, index) => {
+            return (<Card className={classes.card} key={index}>
+                <CardActionArea>
+                    <CardMedia
+                        component="img"
+                        alt={item.title}
+                        className={classes.media}
+                        height="200"
+                        image={item.image}
+                        title={item.title}
+                    />
+                    <CardContent>
+                    <Typography gutterBottom variant="h5" component="h4">
+                        {item.title}
+                    </Typography>
+                    <Typography component="p">
+                        {item.description}
+                    </Typography>
+                    </CardContent>
+                </CardActionArea>
+                <CardActions>]
+                    <Button variant="contained" color="secondary" className={classes.button} onClick={() => this.modalOpen(index)}>
+                        Delete
+                    </Button>
+                </CardActions>
+        </Card>)
         })
-    }
+    }   
     
 
 	render() {
-        const data = JSON.parse(localStorage.getItem('deletedItems'))
+        const { classes } = this.props;
 		return(
-			<div style={{display:'inline-block',float: 'right'}}>
+			<div>
                 <p>Saved items</p>
-                {this.state.data && this.state.data.map((i,index) => {
-                return (<div key={index}>
-                    <img src={i.image} width="50"/>
-                    <div>{i.title}</div> 
-                    <div>{i.description}</div>
-                    <div>{i.score}</div>
-                    <p style={{color:'red'}} onClick={() => this.deleteItem(index)}>Delete</p>
-                </div>)
-            })}
+                {this.getSavedItems()}
+                <Modal
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    open={this.state.open}
+                    onClose={this.closeModal}
+                >
+                    <div style={getModalStyle()} className={classes.paper}>
+                        <Typography variant="h6" id="modal-title">
+                            Are yor Sure
+                        </Typography>
+                        <Typography variant="subtitle1" id="simple-modal-description">
+                            <p onClick={() => this.deleteItem(this.state.deletingIndex)}>delete</p>
+                        </Typography>
+                    </div>
+                </Modal>
 			</div>
 		)
 	}
 }
 
-export default SavedTournamets
+SavedTournamets.propTypes  = {
+	classes: PropTypes.object
+}
+
+export default withStyles(styles)(SavedTournamets);

@@ -21,21 +21,21 @@ const styles = {
 
 class Tournament extends Component {
 
-	getDeletedItems = () => {
-		return JSON.parse(localStorage.getItem('deletedItems'));
+	getSavedItems = () => {
+		return JSON.parse(localStorage.getItem('savedItems'));
 	}
 
 	saveItem = (e, item) => {
 		this.props.saveItem(item.id)
-		const newValue = (JSON.parse(localStorage.getItem('deletedItems')) || []).concat(item);
-		localStorage.setItem('deletedItems', JSON.stringify(newValue));
+		const newValue = (JSON.parse(localStorage.getItem('savedItems')) || []).concat(item);
+		localStorage.setItem('savedItems', JSON.stringify(newValue));
 	}
 
 	fetchedData = () => {
 		const { tournaments, classes } = this.props
 		if(!tournaments) return;
-		let deletedItems = this.getDeletedItems();
-		let tournamentData = tournaments && tournaments.filter(item => deletedItems && deletedItems.indexOf(item.id) == -1)
+		let savedItems = this.getSavedItems();
+		let tournamentData = tournaments && tournaments.filter(item => savedItems && savedItems.indexOf(item.id) == -1)
 		const fetchedData = (tournamentData.length > 0 ? tournamentData : tournaments && tournaments).map(item => {
 			return (
 				<Card className={classes.card} key={item.id}>
